@@ -102,7 +102,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.boilerplate"
+        applicationId "com.line"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

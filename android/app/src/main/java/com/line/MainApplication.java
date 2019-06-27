@@ -1,4 +1,4 @@
-package com.boilerplate;
+package com.line;
 
 import android.app.Application;
 
