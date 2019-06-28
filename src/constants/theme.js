@@ -1,11 +1,13 @@
 const colors = {
-  accent: '#F3534A',
-  primary: '#0AC4BA',
-  secondary: '#2BDA8E',
-  tertiary: '#FFE358',
+  background: '#e0e0e0',
+  facebook: '#1565c0',
+  google: '#c62828',
+  header: '#263238',
+  primary: '#4caf50',
   black: '#323643',
   white: '#FFFFFF',
-  gray: '#9DA3B4'
+  gray: '#9e9e9e',
+  border: '#f5f5f5'
 }
 
 const sizes = {
@@ -13,7 +15,8 @@ const sizes = {
   base: 16,
   font: 14,
   radius: 6,
-  padding: 25,
+  padding: 72,
+  input: 42,
 
   // font sizes
   h1: 26,

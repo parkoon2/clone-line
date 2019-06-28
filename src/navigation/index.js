@@ -2,7 +2,8 @@ import React from 'react'
 import {
   createAppContainer,
   createStackNavigator,
-  createBottomTabNavigator
+  createBottomTabNavigator,
+  createSwitchNavigator
 } from 'react-navigation'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
@@ -12,28 +13,74 @@ import { Button } from 'react-native'
 import Badge from '../components/Badge'
 
 // Screens
-import Settings from '../screens/Settings'
-import HomeConatiner from '../containers/HomeConainer'
+// import HomeConatiner from '../containers/HomeConainer'
 import Welcome from '../screens/Welcome'
 
-const tabs = createBottomTabNavigator(
+// Auth Screen
+import Login from '../screens/Login'
+
+// App Screen
+import Friends from '../screens/Friends'
+import Settings from '../screens/Settings'
+import TimeLine from '../screens/TimeLine'
+import Phone from '../screens/Phone'
+import Chats from '../screens/Chats'
+import { theme } from '../constants'
+
+// Modal
+import FriendDetail from '../screens/modal/FriendDetail'
+
+const FriendStack = createStackNavigator(
   {
-    HomeConatiner,
+    Friends: {
+      screen: Friends
+      // navigationOptions: ({ navigation }) => {
+      // return {
+      //   headerTitle: 'Settings',
+      // }
+    },
+    FriendDetailModal: {
+      screen: FriendDetail
+    }
+  },
+  {
+    mode: 'modal'
+    // headerMode: 'none'
+  }
+)
+
+const AppStack = createBottomTabNavigator(
+  {
+    Friends: {
+      screen: FriendStack
+    },
+    Chats,
+    TimeLine,
+    Phone,
     Settings
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, horizontal, tintColor }) => {
         const { routeName } = navigation.state
-        let IconComponent = Ionicons
         let iconName
-        if (routeName === 'Home') {
-          iconName = `ios-information-circle${focused ? '' : '-outline'}`
-          // Sometimes we want to add badges to some icons.
-          // You can check the implementation below.
-        } else if (routeName === 'Settings') {
-          iconName = `ios-options`
-          IconComponent = Badge
+        let IconComponent = Ionicons
+        switch (routeName) {
+          case 'Friends':
+            iconName = `ios-person`
+            break
+          case 'Settings':
+            iconName = `ios-settings`
+            break
+          case 'TimeLine':
+            iconName = `ios-time`
+            break
+          case 'Phone':
+            iconName = `ios-call`
+            break
+          case 'Chats':
+            iconName = `ios-chatboxes`
+            break
         }
 
         // You can return any component that you like here!
@@ -43,19 +90,18 @@ const tabs = createBottomTabNavigator(
   }
 )
 
-const screens = createStackNavigator(
-  {
-    Welcome,
-    Detail: tabs
-  },
-  {
-    // 각 스크린에서 navigationOptions를 설정하면 overrride 된다.
-    defaultNavigationOptions: {
-      headerRight: (
-        <Button onPress={() => alert('Before override')} title="Click Me" />
-      )
-    }
-  }
-)
+const AuthStack = createStackNavigator({
+  Login
+})
 
-export default createAppContainer(screens)
+export default createAppContainer(
+  createSwitchNavigator(
+    {
+      App: AppStack,
+      Auth: AuthStack
+    },
+    {
+      initialRouteName: 'App'
+    }
+  )
+)
