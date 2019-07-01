@@ -60,33 +60,37 @@ const AppStack = createBottomTabNavigator(
     Settings
   },
   {
-    defaultNavigationOptions: ({ navigation }) => ({
-      tabBarIcon: ({ focused, horizontal, tintColor }) => {
-        const { routeName } = navigation.state
-        let iconName
-        let IconComponent = Ionicons
-        switch (routeName) {
-          case 'Friends':
-            iconName = `ios-person`
-            break
-          case 'Settings':
-            iconName = `ios-settings`
-            break
-          case 'TimeLine':
-            iconName = `ios-time`
-            break
-          case 'Phone':
-            iconName = `ios-call`
-            break
-          case 'Chats':
-            iconName = `ios-chatboxes`
-            break
-        }
+    defaultNavigationOptions: ({ navigation }) => {
+      console.log(navigation.state)
+      return {
+        tabBarVisible: navigation.state.index !== 1,
+        tabBarIcon: ({ focused, horizontal, tintColor }) => {
+          const { routeName } = navigation.state
+          let iconName
+          let IconComponent = Ionicons
+          switch (routeName) {
+            case 'Friends':
+              iconName = `ios-person`
+              break
+            case 'Settings':
+              iconName = `ios-settings`
+              break
+            case 'TimeLine':
+              iconName = `ios-time`
+              break
+            case 'Phone':
+              iconName = `ios-call`
+              break
+            case 'Chats':
+              iconName = `ios-chatboxes`
+              break
+          }
 
-        // You can return any component that you like here!
-        return <IconComponent name={iconName} size={25} color={tintColor} />
+          // You can return any component that you like here!
+          return <IconComponent name={iconName} size={25} color={tintColor} />
+        }
       }
-    })
+    }
   }
 )
 
@@ -101,7 +105,7 @@ export default createAppContainer(
       Auth: AuthStack
     },
     {
-      initialRouteName: 'App'
+      initialRouteName: 'Auth'
     }
   )
 )
