@@ -62,7 +62,10 @@ export default class Friends extends Component {
             renderItem={({ item }) => (
               <TouchableOpacity
                 onPress={() => {
-                  this.props.navigation.navigate('FriendDetailModal')
+                  this.props.navigation.navigate('FriendDetailModal', {
+                    id: 'test',
+                    name: 'test2'
+                  })
                 }}
               >
                 <View style={styles.friendsContainer}>

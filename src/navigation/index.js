@@ -28,7 +28,8 @@ import Chats from '../screens/Chats'
 import { theme } from '../constants'
 
 // Modal
-import FriendDetail from '../screens/modal/FriendDetail'
+import FriendDetailModal from '../screens/modal/FriendDetailModal'
+import Chat from '../screens/modal/ChatModal'
 
 const FriendStack = createStackNavigator(
   {
@@ -40,12 +41,31 @@ const FriendStack = createStackNavigator(
       // }
     },
     FriendDetailModal: {
-      screen: FriendDetail
+      screen: FriendDetailModal
     }
   },
   {
-    mode: 'modal'
-    // headerMode: 'none'
+    mode: 'modal',
+    defaultNavigationOptions: {
+      headerBackTitle: null
+    }
+  }
+)
+
+const ChatStack = createStackNavigator(
+  {
+    Chats: {
+      screen: Chats
+    },
+    ChatModal: {
+      screen: Chat
+    }
+  },
+  {
+    mode: 'modal',
+    defaultNavigationOptions: {
+      headerBackTitle: null
+    }
   }
 )
 
@@ -54,14 +74,16 @@ const AppStack = createBottomTabNavigator(
     Friends: {
       screen: FriendStack
     },
-    Chats,
+    Chats: {
+      screen: ChatStack
+    },
     TimeLine,
     Phone,
     Settings
   },
   {
+    initialRouteName: 'Chats',
     defaultNavigationOptions: ({ navigation }) => {
-      console.log(navigation.state)
       return {
         tabBarVisible: navigation.state.index !== 1,
         tabBarIcon: ({ focused, horizontal, tintColor }) => {
@@ -105,7 +127,7 @@ export default createAppContainer(
       Auth: AuthStack
     },
     {
-      initialRouteName: 'Auth'
+      initialRouteName: 'App'
     }
   )
 )

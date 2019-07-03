@@ -7,7 +7,9 @@ const colors = {
   black: '#323643',
   white: '#FFFFFF',
   gray: '#9e9e9e',
-  border: '#f5f5f5'
+  lightGray: '#eeeeee',
+  border: '#f5f5f5',
+  blue: '#0277bd'
 }
 
 const sizes = {
